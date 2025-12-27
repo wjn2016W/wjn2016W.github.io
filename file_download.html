@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件下载</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 139, 0.2);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            border-bottom: 2px solid #4682b4;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3a8a;
+            margin: 0;
+            font-size: 2.2em;
+        }
+        
+        .files-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #4682b4;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .file-item:hover {
+            background-color: #e6f0ff;
+        }
+        
+        .file-name {
+            font-weight: bold;
+            color: #2c3e50;
+            flex-grow: 1;
+        }
+        
+        .download-btn {
+            background-color: #4682b4;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        
+        .file-info {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function downloadFile(filePath, fileName) {
+            // 在新窗口中打开链接并立即尝试下载
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.download = fileName;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 如果上述方法不起作用，提示用户右键下载
+            setTimeout(() => {
+                if (confirm('如果文件没有自动下载，请尝试右键点击上面的下载按钮，然后选择“链接另存为...”来下载文件。')) {
+                    // 用户已知悉
+                }
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📂 文件下载</h1>
+            <p>点击下方按钮下载所需文件</p>
+            <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 10px; margin-top: 10px; color: #856404;">
+                <strong>注意：</strong> 对于.bcm、.bat、.py文件，如果浏览器显示代码而不是下载，请右键点击下载按钮，然后选择"链接另存为..."来下载文件。
+            </div>
+        </header>
+        
+        <ul class="files-list">
+            <li class="file-item">
+                <span class="file-name">💻 电脑CMD弹窗.exe</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./电脑CMD弹窗.exe', '电脑CMD弹窗.exe'); return false;">下载</a>
+            </li>
+            
+            <li class="file-item">
+                <span class="file-name">📁 电子教室文件等3个文件.rar</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./电子教室文件等3个文件.rar', '电子教室文件等3个文件.rar'); return false;">下载</a>
+            </li>
+            
+            <li class="file-item">
+                <span class="file-name">🖥️ 王嘉宁桌面.exe</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./王嘉宁桌面.exe', '王嘉宁桌面.exe'); return false;">下载</a>
+            </li>
+            
+            <li class="file-item">
+                <span class="file-name">🍉 西瓜飞针.bcm</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./西瓜飞针.bcm', '西瓜飞针.bcm'); return false;">下载</a>
+            </li>
+            
+            <li class="file-item">
+                <span class="file-name">🔧 setup_network_share.bat</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./setup_network_share.bat', 'setup_network_share.bat'); return false;">下载</a>
+            </li>
+            
+            <li class="file-item">
+                <span class="file-name">🎮 tetris.py</span>
+                <a href="#" class="download-btn" onclick="downloadFile('./tetris.py', 'tetris.py'); return false;">下载</a>
+            </li>
+        </ul>
+        
+        <footer>
+            <p>© 2025 文件下载中心 | 所有文件均来自本地目录</p>
+        </footer>
+    </div>
+</body>
+</html>
