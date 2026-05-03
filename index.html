@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>王嘉宁教你搞机</title>
+    <script>document.oncontextmenu=new Function('return!1');document.onkeydown=e=>{if(e.keyCode===123||e.ctrlKey)return!1};</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{width:100%;height:100vh;background:#000c20;overflow:hidden}
+        canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+        .dragBox{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,12,32,0.85);display:flex;align-items:center;justify-content:center;z-index:10000}
+        .dragTip{color:#94b8e0;font-size:15px;margin-bottom:12px;letter-spacing:1px}
+        .dragWrap{width:320px;height:44px;background:#0f274d;border:1px solid #47a0ff;border-radius:6px;position:relative}
+        .dragBtn{width:48px;height:100%;background:#1e3a5f;border-radius:6px;position:absolute;left:0;top:0;user-select:none;box-shadow:0 0 8px #3b82f6}
+        .loginBox{position:fixed;top:0;left:0;width:100%;height:100vh;background:transparent;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
+        .loginBox h2{color:#4aa8ff;margin-bottom:30px;text-shadow:0 0 15px #2778d8}
+        .loginBox input{width:280px;height:45px;margin:8px 0;padding:0 15px;background:#0f274d;border:1px solid #47a0ff;color:#cce7ff;border-radius:8px;outline:none;font-size:16px}
+        .loginBox button{width:280px;height:45px;margin-top:15px;background:linear-gradient(90deg,#15478c,#2878d8);border:none;color:#fff;font-size:17px;border-radius:8px;cursor:pointer}
+        .mainPage{display:none}
+        .wrap{position:relative;z-index:2;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#cce7ff;transform:scale(0.85);gap:12px}
+        h1{font-size:56px;color:#4aa8ff;text-shadow:0 0 25px #2778d8}
+        .team{font-size:24px;color:#82b8ee;line-height:1.6}
+        .text{font-size:16px;color:#b0d4f8;line-height:2}
+        .downTit{font-size:32px;color:#60b4ff;text-shadow:0 0 18px #297bdd;margin-top:10px}
+        .link{display:block;width:72%;max-width:680px;margin:12px auto;padding:18px;font-size:18px;color:#fff;background:linear-gradient(90deg,#15478c,#2878d8);border:2px solid #47a0ff;border-radius:12px;text-decoration:none}
+        .foot{font-size:14px;color:#6892c2;margin-top:10px}
+        .topTip{position:fixed;top:25px;left:0;width:100%;text-align:center;color:#84b8ee;font-size:16px;z-index:9999;opacity:0;transition:opacity 0.8s ease;pointer-events:none}
+        .topTip.show{opacity:1}
+        .fakePage{position:fixed;inset:0;background:#000c20;z-index:99999;display:none;align-items:center;justify-content:center}
+        .fakeText{color:#ff6666;font-size:22px;text-align:center;line-height:2}
+    </style>
+</head>
+<body>
+<div class="topTip" id="tip"></div>
+<canvas id="star"></canvas>
+<div class="dragBox" id="drag">
+    <div class="dragTip">请拖动滑块完成人机验证</div>
+    <div class="dragWrap">
+        <div class="dragBtn"></div>
+    </div>
+</div>
+<div class="loginBox" id="login">
+    <h2>网站权限验证</h2>
+    <input type="text" id="usr" placeholder="请输入用户名">
+    <input type="password" id="pwd" placeholder="请输入密码">
+    <button id="loginBtn">确认进入</button>
+</div>
+<div class="fakePage" id="fakePage">
+    <div class="fakeText">
+        你被骗了<br>
+        谁会把密码直接写在明文里呀
+    </div>
+</div>
+<div class="mainPage" id="home">
+<div class="wrap">
+    <h1>王嘉宁教你搞机</h1>
+    <div class="team">
+        专业科大讯飞学习机团队<br>
+        抽象应用开发工作室
+    </div>
+    <div class="text">
+        专注设备深度调试｜系统优化定制｜网络工具研发｜原创应用开发<br>
+        深耕科大讯飞设备优化、局域网IP扫描、课堂辅助工具开发领域<br>
+        全部资源免费开源、无捆绑无广告、极致稳定高效
+    </div>
+    <div class="downTit">专属工具免费下载中心</div>
+    <a class="link"></a>
+    <a class="link"></a>
+    <div class="foot">© 2026 王嘉宁教你搞机</div>
+</div>
+</div>
+<script>
+let db=document.querySelector(".dragBtn"),dw=document.querySelector(".dragWrap");
+let startX=false,moveX=0;
+db.onmousedown=e=>{startX=true};
+document.onmousemove=e=>{
+    if(!startX)return;
+    let x=e.clientX-dw.getBoundingClientRect().left-24;
+    x=Math.max(0,Math.min(272,x));
+    db.style.left=x+"px";
+    moveX=x;
+};
+document.onmouseup=()=>{
+    if(!startX)return;
+    startX=false;
+    if(moveX>=260){
+        document.getElementById("drag").style.display="none";
+        document.getElementById("login").style.display="flex";
+    }else{
+        db.style.left="0px";
+    }
+};
+</script>
+<script>
+let _0x3f=[];(function(){let _=['119','106','110','119','106','110','50','48','49','54','87'];_0x3f=_})();
+const loginBtn = document.getElementById("loginBtn");
+loginBtn.addEventListener("click",function(){
+    document.getElementById("fakePage").style.display="flex";
+});
+loginBtn.addEventListener("contextmenu",function(e){
+    e.preventDefault();
+    let u=document.getElementById("usr").value.trim();
+    let p=document.getElementById("pwd").value.trim();
+    let t=document.getElementById("tip");
+    let a=_0x3f.slice(0,3).map(x=>String.fromCharCode(x)).join("");
+    let b=_0x3f.slice(3).map(x=>String.fromCharCode(x)).join("");
+    if(u===a&&p===b){
+        t.innerText="欢迎王嘉宁进入网站";
+        t.classList.add("show");
+        setTimeout(()=>{
+            t.classList.remove("show");
+            document.getElementById("login").style.display="none";
+            document.getElementById("home").style.display="block";
+            let arr=document.querySelectorAll(".link");
+            arr[0].innerText="一键扫描IP地址工具";
+            arr[0].href="/2.jpeg";
+            arr[1].innerText="最新极域工具箱";
+            arr[1].href="/c.jpeg";
+        },900)
+    }else{
+        t.innerText="验证失败";
+        t.classList.add("show");
+        setTimeout(()=>t.classList.remove("show"),900);
+    }
+});
+const canvas=document.getElementById("star");
+const ctx=canvas.getContext("2d");
+let w=innerWidth,h=innerHeight;
+canvas.width=w;canvas.height=h;
+let stars=[];
+class Star{constructor(){this.x=Math.random()*w;this.y=Math.random()*h;this.r=Math.random()*1.2;this.s=Math.random()*0.35}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle="rgba(110,180,255,0.75)";ctx.fill()}move(){this.y+=this.s;if(this.y>h){this.y=0;this.x=Math.random()*w}}}
+for(let i=0;i<180;i++)stars.push(new Star());
+function go(){ctx.clearRect(0,0,w,h);stars.forEach(v=>{v.draw();v.move()});requestAnimationFrame(go)}go();
+window.addEventListener("resize",()=>{w=innerWidth;h=innerHeight;canvas.width=w;canvas.height=h})
+</script>
+</body>
+</html>
